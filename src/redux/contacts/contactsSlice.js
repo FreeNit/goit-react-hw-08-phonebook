@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addContact, fetchContacts } from './contactsOperations';
+import { addContact, fetchContacts, deleteContact } from './contactsOperations';
 
 const contactsInitialState = {
   items: [],
@@ -21,25 +21,15 @@ const contactsSlice = createSlice({
   name: 'contacts',
   initialState: contactsInitialState,
 
-  reducers: {
-    deleteContact(state, action) {
-      const filteredContacts = state.items.filter(
-        item => item.id !== action.payload
-      );
-      return {
-        ...state,
-        items: filteredContacts,
-      };
-    },
-  },
-
   // Додаємо обробку зовнішніх екшенів
   extraReducers: {
     [fetchContacts.pending]: handlePending,
     [addContact.pending]: handlePending,
+    [deleteContact.pending]: handlePending,
 
     [addContact.rejected]: handleRejected,
     [fetchContacts.rejected]: handleRejected,
+    [deleteContact.rejected]: handleRejected,
 
     [fetchContacts.fulfilled](state, action) {
       state.isLoading = false;
@@ -51,9 +41,15 @@ const contactsSlice = createSlice({
       state.error = null;
       state.items.push(action.payload);
     },
+    [deleteContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.items.findIndex(
+        contact => contact.id === action.payload.id
+      );
+      state.items.splice(index, 1);
+    },
   },
 });
-
-export const { deleteContact } = contactsSlice.actions;
 
 export const contactsReducer = contactsSlice.reducer;

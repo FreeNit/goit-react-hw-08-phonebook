@@ -23,6 +23,19 @@ export const addContact = createAsyncThunk(
     console.log(contact);
     try {
       const response = await axios.post('/contacts', contact);
+      return response.data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+// -> DELETE @ /contacts/:id
+export const deleteContact = createAsyncThunk(
+  'contacts/deleteContact',
+  async (contactID, thunkAPI) => {
+    try {
+      const response = await axios.delete(`/contacts/${contactID}`);
       console.log(response.data);
       return response.data;
     } catch (error) {

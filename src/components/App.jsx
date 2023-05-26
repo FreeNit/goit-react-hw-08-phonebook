@@ -1,11 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { ContactForm } from './ContactForm/ContactForm';
 import { useEffect } from 'react';
-import { getContactThunk, deleteContactThunk } from 'store/thunks';
-import { setNewFilterValue } from 'store/filterSlice';
+import { getContactThunk, deleteContactThunk } from 'redux/store/thunks';
+import { setNewFilterValue } from 'redux/store/filterSlice';
 
 import { NotificationContainer } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import { Route, Routes } from 'react-router-dom';
+import Home from 'pages/Home';
+import Login from 'pages/Login';
+import Register from 'pages/Register';
+import { Layout } from './Layout';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -39,18 +44,29 @@ export const App = () => {
   return (
     <div
       style={{
-        height: '100vh',
+        // height: '100vh',
         display: 'flex',
-        flexDirection: 'column',
+        // flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         gap: 35,
         fontSize: 16,
-        textAlign: 'center',
+        // textAlign: 'center',
         color: '#010101',
       }}
     >
-      <div>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
+
+        {/* 
+        <Route path='/todos' component={Todos}/> */}
+      </Routes>
+
+      {/* <div>
         <ContactForm />
       </div>
       <div>
@@ -88,7 +104,7 @@ export const App = () => {
           </div>
         )}
       </div>
-      <NotificationContainer />
+      <NotificationContainer /> */}
     </div>
   );
 };

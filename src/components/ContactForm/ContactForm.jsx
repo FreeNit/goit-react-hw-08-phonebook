@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { createContactThunk } from 'store/thunks';
+import { createContactThunk } from 'redux/store/thunks';
 
 import { NotificationManager } from 'react-notifications';
 

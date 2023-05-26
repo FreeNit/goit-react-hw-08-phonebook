@@ -13,16 +13,6 @@ export const getContacts = async () => {
 };
 
 export const createContact = async data => {
-  // console.log('createContact data -> ', data);
-
-  // const res = await fetch(`${BASE_URL}/contacts`, {
-  //   method: 'POST',
-  //   headers: { 'content-type': 'application/json' },
-  //   // Send your data in the request body as JSON
-  //   body: JSON.stringify(data),
-  // });
-  // return await res.json();
-
   try {
     await fetch(`${BASE_URL}/contacts`, {
       method: 'POST',
@@ -42,9 +32,6 @@ export const createContact = async data => {
 };
 
 export const deleteContact = async id => {
-  // const res = await fetch(`${BASE_URL}/contacts/${id}`, { method: 'DELETE' });
-
-  // return await res.json();
   try {
     await fetch(`${BASE_URL}/contacts/${id}`, { method: 'DELETE' });
     const data = await fetch(`${BASE_URL}/contacts`);

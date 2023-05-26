@@ -1,15 +1,17 @@
-import { ContactForm } from 'components/ContactForm/ContactForm';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { ContactForm } from 'components/ContactForm/ContactForm';
+import { fetchContacts } from 'redux/contacts/contactsOperations';
 import { setNewFilterValue } from 'redux/filter/filterSlice';
 
 export const Contacts = () => {
   const isLoading = useSelector(state => state.contacts.isLoading);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getContactThunk());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter.filter);

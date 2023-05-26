@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { NotificationManager } from 'react-notifications';
+import { addContact } from 'redux/contacts/contactsOperations';
 
 const checkUserAvailability = (contacts, userName) => {
   const userNameNormalized = userName.toLowerCase();
@@ -20,7 +21,7 @@ export const ContactForm = () => {
 
     const contact = {
       name: evt.target.elements.name.value,
-      phone: evt.target.elements.number.value,
+      number: evt.target.elements.number.value,
     };
 
     // -> Check if user name is already in the list
@@ -31,7 +32,7 @@ export const ContactForm = () => {
       return;
     }
 
-    // dispatch(createContactThunk(contact));
+    dispatch(addContact(contact));
     // -> Reset form`s fields
     evt.target.reset();
   };

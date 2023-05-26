@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { createContactThunk } from 'redux/store/thunks';
 
 import { NotificationManager } from 'react-notifications';
 
@@ -32,7 +31,7 @@ export const ContactForm = () => {
       return;
     }
 
-    dispatch(createContactThunk(contact));
+    // dispatch(createContactThunk(contact));
     // -> Reset form`s fields
     evt.target.reset();
   };

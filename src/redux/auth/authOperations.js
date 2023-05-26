@@ -58,6 +58,21 @@ const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   }
 });
 
+/*
+ -> GET @ /contacts
+*/
+export const getContacts = async () => {
+  try {
+    const data = await axios.get(`$/contacts`);
+    if (data.statusText === 'OK') {
+      return await data.json();
+    }
+  } catch (error) {
+    console.error(error.message);
+    return error.message;
+  }
+};
+
 // Authorization: 'Bearer token'-> required to each operation
 
 const authOperations = {

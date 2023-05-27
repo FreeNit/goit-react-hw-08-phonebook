@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { NotificationManager } from 'react-notifications';
 import { addContact } from 'redux/contacts/contactsOperations';
+import { ContactFormWrapper } from './ContactForm.styled';
 
 const checkUserAvailability = (contacts, userName) => {
   const userNameNormalized = userName.toLowerCase();
@@ -38,11 +39,11 @@ export const ContactForm = () => {
   };
 
   return (
-    <div>
+    <ContactFormWrapper>
       <h3>Phonebook</h3>
-      <form onSubmit={handleSubmit}>
+      <form className="newContactForm" onSubmit={handleSubmit}>
         <label>
-          Name
+          <span>Name</span>
           <input
             type="text"
             name="name"
@@ -51,8 +52,9 @@ export const ContactForm = () => {
             required
           />
         </label>
+
         <label>
-          Number
+          <span>Number</span>
           <input
             type="tel"
             name="number"
@@ -61,8 +63,11 @@ export const ContactForm = () => {
             required
           />
         </label>
-        <button type="submit">Add contact</button>
+
+        <button className="addContactBtn" type="submit">
+          Add contact
+        </button>
       </form>
-    </div>
+    </ContactFormWrapper>
   );
 };

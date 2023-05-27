@@ -6,6 +6,11 @@ import {
   fetchContacts,
 } from 'redux/contacts/contactsOperations';
 import { setNewFilterValue } from 'redux/filter/filterSlice';
+import {
+  ContactListSection,
+  ContactsList,
+  FilterWrapper,
+} from './ContactList.styled';
 
 export const ContactList = () => {
   const isLoading = useSelector(state => state.contacts.isLoading);
@@ -37,14 +42,14 @@ export const ContactList = () => {
     dispatch(setNewFilterValue(filterValue));
   };
   return (
-    <div>
+    <ContactListSection>
       {isLoading && <h3>...Loading</h3>}
 
       {contacts.length > 0 && (
         <div>
-          <div>
+          <FilterWrapper>
             <label>
-              Find contacts by name
+              Find contacts by name:
               <input
                 type="text"
                 onChange={evt => {
@@ -52,13 +57,14 @@ export const ContactList = () => {
                 }}
               />
             </label>
-          </div>
+          </FilterWrapper>
 
-          <ul>
-            {visibleContacts.map(({ id, name, phone }) => (
+          <ContactsList>
+            {visibleContacts.map(({ id, name, number }) => (
               <li key={id}>
-                {name + ' ' + phone}
+                {name + ' ' + number}
                 <button
+                  className="deleteContactBtn"
                   type="button"
                   onClick={() => {
                     handleDeleteContact(id);
@@ -68,9 +74,9 @@ export const ContactList = () => {
                 </button>
               </li>
             ))}
-          </ul>
+          </ContactsList>
         </div>
       )}
-    </div>
+    </ContactListSection>
   );
 };

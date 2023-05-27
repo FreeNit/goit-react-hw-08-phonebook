@@ -6,8 +6,17 @@ import Login from 'pages/Login';
 import Register from 'pages/Register';
 import { Layout } from './Layout';
 import { Contacts } from './Contacts/Contacts';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import authOperations from 'redux/auth/authOperations';
 
 export const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
+
   return (
     <div
       style={{

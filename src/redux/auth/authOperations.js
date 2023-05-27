@@ -4,6 +4,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
 const token = {
+  // Authorization: 'Bearer token'-> required to each operation
+
   set(token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
@@ -58,12 +60,42 @@ const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   }
 });
 
-// Authorization: 'Bearer token'-> required to each operation
+/*
+ -> GET @ /users/current
+ -> headers: 
+      Authorization: Bearer token
+    1. Get token from state with getState()
+    2. If token not exist, exit without any operations
+    3. If token exist, add it to the HTTP-header and proceed operation
+*/
+
+const fetchCurrentUser = createAsyncThunk(
+  'auth/refresh',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.token;
+
+    if (persistedToken === null) {
+      console.log('Token not exist');
+      return thunkAPI.rejectWithValue();
+    }
+
+    token.set(persistedToken);
+
+    try {
+      const response = await axios.get('/users/current');
+      return response.data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 const authOperations = {
   register,
   logIn,
   logOut,
+  fetchCurrentUser,
 };
 
 export default authOperations;

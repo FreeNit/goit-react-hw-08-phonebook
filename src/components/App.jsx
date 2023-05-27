@@ -1,6 +1,6 @@
 import { NotificationContainer } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Home from 'pages/Home';
 import Login from 'pages/Login';
 import Register from 'pages/Register';
@@ -75,6 +75,7 @@ export const App = () => {
               }
             />
           </Route>
+          <Route path="*" element={<Navigate to="/" replace={true} />} />
         </Routes>
 
         <NotificationContainer />

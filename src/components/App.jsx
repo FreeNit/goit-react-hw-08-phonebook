@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import authOperations from 'redux/auth/authOperations';
 import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -34,10 +35,31 @@ export const App = () => {
     >
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          {/* <Route path="/contacts" element={<Contacts />} /> */}
+          <Route
+            index
+            element={
+              <PublicRoute>
+                <Home />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute restricted>
+                <Register />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute restricted>
+                <Login />
+              </PublicRoute>
+            }
+          />
+
           <Route
             path="/contacts"
             element={

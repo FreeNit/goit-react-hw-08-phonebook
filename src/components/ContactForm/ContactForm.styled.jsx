@@ -16,6 +16,7 @@ export const ContactFormWrapper = styled.div`
     label {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       gap: 10px;
 
       input {

@@ -9,6 +9,7 @@ import { Contacts } from './Contacts/Contacts';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import authOperations from 'redux/auth/authOperations';
+import PrivateRoute from './PrivateRoute';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,15 @@ export const App = () => {
           <Route index element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/contacts" element={<Contacts />} />
+          {/* <Route path="/contacts" element={<Contacts />} /> */}
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute>
+                <Contacts />
+              </PrivateRoute>
+            }
+          />
         </Route>
       </Routes>
 

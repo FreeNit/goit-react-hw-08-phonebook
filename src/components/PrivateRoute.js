@@ -8,7 +8,7 @@ import authSelectors from 'redux/auth/authSelectors';
 
 // 1. Має повторяти API Route
 // 2. Має рендерити Route
-export default function PrivateRoute({ children }) {
+export default function PrivateRoute({ children, redirectTo = '/' }) {
   const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
-  return isLoggedIn ? children : <Navigate to="/login" />;
+  return isLoggedIn ? children : <Navigate to={redirectTo} />;
 }
